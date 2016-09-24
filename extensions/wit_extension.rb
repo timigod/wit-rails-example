@@ -8,7 +8,8 @@ class WitExtension
     access_token = "7DO5OGFBNMKCLW57NIIO5I7CS27RAJCU"
     actions = {
         send: -> (request, response) {
-
+          PubnubExtension.instance.client.publish(message: response['text'], channel: @conversation.uid)
+          puts("sending... #{response['text']}")
         },
 
         findTheater:  -> (request) {
@@ -37,6 +38,10 @@ class WitExtension
 
   def client
     return @client
+  end
+
+  def set_conversation(conversation)
+    @conversation = conversation
   end
 
   private

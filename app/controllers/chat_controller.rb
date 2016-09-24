@@ -10,7 +10,7 @@ class ChatController < ApplicationController
     validate_message_params
     set_conversation
     create_incoming_message(params[:message])
-    WitClient.instance.client.run_actions(@conversation.uid, params[:message])
+    WitExtension.instance.client.run_actions(@conversation.uid, params[:message])
     puts "SENDING TO WIT #{params[:message]}"
   end
 
@@ -23,11 +23,11 @@ class ChatController < ApplicationController
 
   def create_conversation
     @conversation = Conversation.create
-    WitClient.instance.set_conversation(@conversation)
+    WitExtension.instance.set_conversation(@conversation)
   end
 
   def add_channel_to_main_group
-    PubnubClient.instance.client.channel_registration(action: :add, group: 'main', channel: @conversation.uid)
+    PubnubExtension.instance.client.channel_registration(action: :add, group: 'main', channel: @conversation.uid)
   end
 
   def create_incoming_message(message)
@@ -43,5 +43,6 @@ class ChatController < ApplicationController
 
   def set_conversation
     @conversation = Conversation.find_by_uid(params[:uid])
+    WitExtension.instance.set_conversation(@conversation)
   end
 end
