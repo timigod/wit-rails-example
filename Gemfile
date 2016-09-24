@@ -14,6 +14,7 @@ gem 'wit'  #wit ruby sdk
 group :development, :test do
   gem 'spring'
   gem 'sqlite3'
+  gem 'listen'
 end
 
 
