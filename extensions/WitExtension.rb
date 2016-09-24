@@ -11,7 +11,7 @@ class WitExtension
 
         },
 
-        findRestaurants:  -> (request) {
+        findTheater:  -> (request) {
           context = request["context"]
           entities = request["entities"]
 
