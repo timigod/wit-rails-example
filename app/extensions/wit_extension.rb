@@ -4,7 +4,7 @@ require 'singleton'
 class WitExtension
   include Singleton
 
-  def initializer
+  def initialize
     access_token = "7DO5OGFBNMKCLW57NIIO5I7CS27RAJCU"
     actions = {
         send: -> (request, response) {
