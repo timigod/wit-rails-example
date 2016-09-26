@@ -9,6 +9,7 @@ class WitExtension
     actions = {
         send: -> (request, response) {
           PubnubExtension.instance.client.publish(message: response['text'], channel: @conversation.uid)
+          @conversation.messages.create(body: response['text'], kind: "outgoing")
           puts("sending... #{response['text']}")
         },
 
