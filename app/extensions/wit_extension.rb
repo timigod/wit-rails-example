@@ -13,22 +13,33 @@ class WitExtension
           puts("sending... #{response['text']}")
         },
 
-        findTheatre:  -> (request) {
+        findTheatre: -> (request) {
           context = request["context"]
           entities = request["entities"]
 
-          showTime = first_entity_value(entities, "datetime")
-          movie = first_entity_value(entities, "movie")
+          showTime = first_entity_value(entities, "datetime") || context["showTime"]
+          movie = first_entity_value(entities, "movie") || context["movie"]
 
-          if showTime && movie
-            theatre = search_theatres(showTime, movie)
+          if showTime
             context["showTime"] = showTime
-            context["movie"] = movie
-            context["theatre"] = theatre
-          elsif !showTime
+            context.delete("missingTime")
+          else
             context["missingTime"] = true
           end
 
+          if movie
+            context["movie"] = movie
+          end
+
+          if showTime && movie
+            theatre = search_theatres(showTime, movie)
+            context["theatre"] = theatre
+            new_context = {}
+          else
+            new_context = context
+          end
+
+          @conversation.update(context: new_context)
           return context
         }
     }

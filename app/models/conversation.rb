@@ -1,4 +1,5 @@
 class Conversation < ApplicationRecord
+  serialize :context, Hash
   before_create :set_uid
   has_many :messages
 
