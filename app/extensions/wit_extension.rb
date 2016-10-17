@@ -13,7 +13,7 @@ class WitExtension
           puts("sending... #{response['text']}")
         },
 
-        findTheater:  -> (request) {
+        findTheatre:  -> (request) {
           context = request["context"]
           entities = request["entities"]
 
@@ -21,10 +21,10 @@ class WitExtension
           movie = first_entity_value(entities, "movie")
 
           if showTime && movie
-            theater = search_theaters(showTime, movie)
+            theatre = search_theatres(showTime, movie)
             context["showTime"] = showTime
             context["movie"] = movie
-            context["theatre"] = theater
+            context["theatre"] = theatre
           elsif !showTime
             context["missingTime"] = true
           end
@@ -54,10 +54,10 @@ class WitExtension
     return val.is_a?(Hash) ? val['value'] : val
   end
 
-  def search_theaters(showTime, movie)
+  def search_theatres(showTime, movie)
     # perform search query magic
-    puts "Searching for Theater..."
-    return "Random Theater"
+    puts "Searching for Theatre..."
+    return "Random Theatre"
   end
 
 end
