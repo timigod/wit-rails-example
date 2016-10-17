@@ -1,5 +1,5 @@
 # wit-rails-example
 
-Example rails application bot for [chunksofco.de](https://chunksofco.de).
+Example rails application chatbot API for [chunksofco.de](https://chunksofco.de).
 
 [Read the blog post]()
