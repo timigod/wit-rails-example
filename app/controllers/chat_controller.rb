@@ -10,7 +10,6 @@ class ChatController < ApplicationController
     validate_message_params
     set_conversation
     create_incoming_message(params[:message])
-    puts "LOL #{@conversation.context}"
     WitExtension.instance.client.run_actions(@conversation.uid, params[:message], @conversation.context)
     puts "SENDING TO WIT #{params[:message]}"
   end
